@@ -112,9 +112,9 @@ cluster_map.update_layout(height=900)
 app = dash.Dash(__name__)
 server = app.server
 
-app.layout = html.Div(id="body",className="e5_body",children=[
-        html.H1("Inmuebles en California ",id="title",className="e5_title"),
-            dcc.Dropdown(id="dropdown",className="e5_dropdown",
+app.layout = html.Div(id="body",className="e6_body",children=[
+        html.H1("Inmuebles de California ",id="title",className="e6_title"),
+            dcc.Dropdown(id="dropdown",className="e6_dropdown",
                         options = [
                             {"label":"Valor de precio","value":"MedHouseVal"},
                             {"label":"Ingreso medio","value":"MedInc"},
@@ -127,8 +127,8 @@ app.layout = html.Div(id="body",className="e5_body",children=[
                         value="MedHouseVal",
                         multi=False,
                         clearable=False),
-        dcc.Graph(id="graph_1",className="e5_graph",figure={}),
-        dcc.Graph(id="graph_2",className="e5_graph",figure=cluster_map)
+        dcc.Graph(id="graph_1",className="e6_graph",figure={}),
+        dcc.Graph(id="graph_2",className="e6_graph",figure=cluster_map)
 ])
 
 @app.callback(
