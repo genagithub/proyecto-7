@@ -114,6 +114,7 @@ server = app.server
 
 app.layout = html.Div(id="body",className="e7_body",children=[
         html.H1("Inmuebles de California ",id="title",className="e7_title"),
+        html.Div(id="div_dropdown",className="e7_div_dropdown",children=[
             dcc.Dropdown(id="dropdown",className="e7_dropdown",
                         options = [
                             {"label":"Valor de precio","value":"MedHouseVal"},
@@ -126,7 +127,8 @@ app.layout = html.Div(id="body",className="e7_body",children=[
                         ],
                         value="MedHouseVal",
                         multi=False,
-                        clearable=False),
+                        clearable=False)
+        ]),
         dcc.Graph(id="graph_1",className="e7_graph",figure={}),
         dcc.Graph(id="graph_2",className="e7_graph",figure=cluster_map)
 ])
