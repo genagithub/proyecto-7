@@ -8,7 +8,7 @@
 }
 .e6_title  {
     color: white;
-    text-shadow:4px 4px 15px 0 black;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
     margin-bottom: 50px;
     text-align:center;
     font-family:"no-roboto", sans-serif;    
