@@ -13,13 +13,12 @@
     text-align:center;
     font-family:"no-roboto", sans-serif;    
 }
-.e7_div  {
-    background-color: white;
-    width:100%;
-    height:70px;
+.e7_div{
+    width:95%;
+    height:100%;
     box-shadow:4px 4px 15px 0 black;
     display:flex;
-    flex-direction:row;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
     padding: 0;
@@ -35,5 +34,5 @@
     width:200px;
 }
 .e7_graph {
-    width: 95%;
+    width: 100%;
 }
