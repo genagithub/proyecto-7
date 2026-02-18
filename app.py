@@ -129,7 +129,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
                         multi=False,
                         clearable=False)
         ]),
-        html.Div(id="div",className="e7_div",children=[
+        html.Div(id="div_graphs",className="e7_div",children=[
         dcc.Graph(id="graph_1",className="e7_graph",figure={}),
         dcc.Graph(id="graph_2",className="e7_graph",figure=cluster_map)
         ])
