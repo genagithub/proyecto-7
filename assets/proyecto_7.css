@@ -9,7 +9,7 @@
 .e7_title  {
     color: white;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     text-align:center;
     font-family:"no-roboto", sans-serif;    
 }
@@ -26,9 +26,10 @@
 .e7_div_dropdown {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 100%;
+    margin-bottom: 15px
 }
 .e7_dropdown  {
     width:200px;
