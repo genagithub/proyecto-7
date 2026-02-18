@@ -4,5 +4,5 @@ matplotlib==3.9.0
 plotly==5.20.0
 dash==2.16.1
 scikit-learn==1.6.1
-xgboost==2.0.3
+xgboost==2.1.0
 gunicorn==23.0.0
