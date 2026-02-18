@@ -113,7 +113,7 @@ app = dash.Dash(__name__)
 server = app.server
 
 app.layout = html.Div(id="body",className="e7_body",children=[
-        html.H1("Inmuebles de California ",id="title",className="e7_title"),
+        html.H1("Análsis inmobiliario en California ",id="title",className="e7_title"),
         html.Div(id="div_dropdown",className="e7_div_dropdown",children=[
             dcc.Dropdown(id="dropdown",className="e7_dropdown",
                         options = [
