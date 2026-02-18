@@ -1,8 +1,8 @@
-pandas
-numpy
-matplotlib
-plotly
-dash
-scikit-learn
-xgboost
-gunicorn
+pandas==2.3.3
+numpy==2.2.6
+matplotlib==3.9.0
+plotly==5.20.0
+dash==2.16.1
+scikit-learn==1.6.1
+xgboost==2.0.3
+gunicorn==23.0.0
