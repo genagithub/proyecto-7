@@ -13,6 +13,9 @@
     text-align:center;
     font-family:"no-roboto", sans-serif;    
 }
+.e7_title:hover{
+    cursor:pointer;
+}
 .e7_div{
     width:90%;
     height:100%;
