@@ -101,7 +101,7 @@ make_figure(df, df["clusters"].unique()[2])
 make_figure(df, df["clusters"].unique()[3])
 make_figure(df, df["clusters"].unique()[4])
 
-cluster_map.update_xaxes(row=1, col=1, range=[-150,-164], constrain="domain")
+cluster_map.update_xaxes(row=1, col=1, range=[-125,-114], constrain="domain")
 cluster_map.update_yaxes(row=1, col=1, range=[32,42], constrain="domain", scaleanchor="x", scaleratio=1)
 
 clusters_count = df["clusters"].value_counts().reset_index()
