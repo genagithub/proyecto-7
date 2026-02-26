@@ -1,74 +1,45 @@
-.e7_body {
+.e7_body  {
     width:100%;
     height:100%;
     display:flex;
     flex-direction:column;
     justify-content:center;
+    align-items:center
+}
+.e7_title  {
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
+    margin-bottom: 40px;
+    text-align:center;
+    font-family:"no-roboto", sans-serif;    
+}
+.e7_title:hover{
+    cursor:pointer;
+}
+.e7_div{
+    width:90%;
+    height:100%;
+    box-shadow:4px 4px 15px 0 black;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
     align-items:center;
-    background-color: white;
+    padding: 0;
+    margin: 20px 0;
+    margin-bottom: 20px
 }
-.e7_title {
-    text-align:initial;
-    color:white;
-    font-family:sans-serif;
-    margin: 25px 0;
-}
-.e7_KPI_div{
+.e7_div_dropdown {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 35px;
-    width: 65%;
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
-.e7_KPI{
-    height: 100%;
-    width: 45%;
-    display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    color: black;
-    text-align: center;
-    font-family: sans-serif;
-    font-size: 0.7;
-    margin: 0;
-    font-weight: bold;
-}
-.e7_dropdown_1 {
-    width:140px;
-    height:25px;
-    margin-bottom: 20px;
-}
-.e7_graph_div{
-    width: 65%;
-    height: 395px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    margin-bottom: 230px;
-}
-.e7_graph_1{
     width: 100%;
-    height: 320px;
+    margin-bottom: 25px
 }
-.e7_dropdown_div{
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    margin-left: 30px;
-    margin-top: 10px;
-    margin-bottom: 0;
+.e7_dropdown  {
+    width:150px;
+    margin-bottom: 20px
 }
-.e7_dropdown_2 {
-    width:175px;
-    height:25px;
-    margin-bottom: 20px;
-}
-.e7_graph_2 {
-    width: 100%;
+.e7_graph{
+    width: 95%;
 }
