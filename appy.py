@@ -123,7 +123,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         lon=df_filtered["lon"],
         mode="markers",
         marker=go.scattermapbox.Marker(
-            size=9,
+            size=8,
             color=df_filtered["price"],
             showscale=True,
             colorbar=dict(title="Precios")
