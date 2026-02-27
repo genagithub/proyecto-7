@@ -91,7 +91,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
                         value=df["property_type"].unique()[0],
                         multi=False,
                         clearable=False)
-])
+        ]),
         dcc.Graph(id="graph_1",className="e7_graph",figure={}),
         dcc.Graph(id="graph_2",className="e7_graph",figure={})
 ])
