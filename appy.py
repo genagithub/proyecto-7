@@ -33,7 +33,7 @@ cols_knn = ["lat","lon","rooms","bathrooms","bedrooms","surface_covered","price"
 imputed_array = imputer.fit_transform(df[cols_knn])
 df["surface_total"] = imputed_array[:, -1]
 
-dolar_value = 1470
+dolar_value = 1390
 currency_ARS = df.loc[df["currency"] == "ARS", "price"]
 df.loc[df["currency"] == "ARS", "price"] = currency_ARS / dolar_value
 
