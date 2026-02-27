@@ -31,10 +31,10 @@
 .e7_div_dropdown {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
-    margin-bottom: 25px
+    width: 90%;
+    margin-bottom: 5px
 }
 .e7_dropdown  {
     width:150px;
