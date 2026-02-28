@@ -106,11 +106,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
 )
 
 def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
-    df_filtered = df[df["operation_type"] == slct_operation]
-    df_filtered = df[df["price_period"] == slct_price_period]
-    df_filtered = df[df["status"] == slct_status]
-    df_filtered = df[df["property_type"] == slct_property]
-
+    df_filtered = df.loc[df["operation_type"] == slct_operation & df["price_period"] == slct_price_period & df["status"] == slct_status & df["property_type"] == slct_property, :]
     df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
     df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
 
