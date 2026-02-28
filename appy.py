@@ -17,10 +17,10 @@ from dash.dependencies import Input, Output
 
 df = pd.read_csv("data/properati.csv")
 
-df.dropna(subset=["lat","lon","surface_covered","price"], inplace=True)
+df.dropna(subset=["lat","lon","surface_covered","price","currency"], inplace=True)
 df = df[df["surface_covered"] <= df["surface_total"]]
 
-cols_mode = ["rooms","bedrooms","bathrooms","currency"]
+cols_mode = ["rooms","bedrooms","bathrooms"]
 
 for col in cols_mode:
     if col in df.columns:
