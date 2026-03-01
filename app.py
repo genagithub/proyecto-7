@@ -62,8 +62,8 @@ df_rents["price_period"] = df_rents["price_period"].fillna(rent_mode)
 temp_rent_mode = df_temp_rents["price_period"].mode()[0]
 df_temp_rents["price_period"] = df_temp_rents["price_period"].fillna(temp_rent_mode)
 
-df.loc[df["opertion_type"] == "Alquiler", "price_period"] = df_rents["price_period"]
-df.loc[df["opertion_type"] == "Alquiler temporal", "price_period"] = df_temp_rents["price_period"]
+df.loc[df["operation_type"] == "Alquiler", "price_period"] = df_rents["price_period"]
+df.loc[df["operation_type"] == "Alquiler temporal", "price_period"] = df_temp_rents["price_period"]
 
 app = dash.Dash(__name__)
 server = app.server
