@@ -162,7 +162,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         )
 
     clusters_analysis.update_xaxes(range=[-58.55, -58.33], row=1, col=1)
-    clusters_analysis.update_yaxes(range=[-34.72, -34.52], row=1, col=1)
+    clusters_analysis.update_yaxes(range=[-34.72, -34.52], scaleanchor="x", scaleratio=1, row=1, col=1)
     
     counts = df_filtered["cluster_label"].value_counts().reset_index()
     clusters_analysis.add_trace(
@@ -170,7 +170,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         row=2, col=1
     )
     
-    clusters_analysis.update_layout(height=850, template="plotly_dark", yaxis=dict(scaleanchor="x",scaleratio=1))
+    clusters_analysis.update_layout(height=850, template="plotly_dark")
     
     return caba_map, clusters_analysis
     
