@@ -94,7 +94,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
                         multi=False,
                         clearable=False)
         ]),
-        dcc.Graph(id="graph_1",className="e7_graph",style={"height":"350px"},figure={}),
+        dcc.Graph(id="graph_1",className="e7_graph",style={"height":"500px"},figure={}),
         dcc.Graph(id="graph_2",className="e7_graph",figure={})
 ])
 
