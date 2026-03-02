@@ -123,6 +123,8 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         marker=go.scattermapbox.Marker(
             size=8,
             color=df_filtered["price"],
+            cmin=df_filtered["price"].min(),
+            cmax=df_filtered["price"].max(),
             showscale=True,
             colorbar=dict(title="Precios")
         )
