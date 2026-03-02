@@ -17,6 +17,8 @@ from dash.dependencies import Input, Output
 
 df = pd.read_csv("data/properati.csv")
 
+df["lat"], df["lon"] = df["lon"], df["lat"]
+
 df.dropna(subset=["lat","lon","surface_covered","price","currency"], inplace=True)
 df = df[df["surface_covered"] <= df["surface_total"]]
 
