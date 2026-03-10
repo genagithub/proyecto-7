@@ -111,11 +111,13 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :]
     df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
     df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
-    
+
+    columns_hover = ["price","surface_total"]
     caba_map = go.Figure(go.Scattermapbox(
         lat=df_filtered["lat"],
         lon=df_filtered["lon"],
         mode="markers",
+        customdata=df_filtered[columns_hover], 
         marker=go.scattermapbox.Marker(
             size=8,
             color=df_filtered["price"],
@@ -123,6 +125,11 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
             cmax=df_filtered["price"].max(),
             showscale=True,
             colorbar=dict(title="Precios")
+        ),
+        hovertemplate=(
+            "<b>Precio Total:</b> USD %{customdata[0]:,.0f}<br>" +
+            "<b>Superficie:</b> %{customdata[1]} m²<br>" +
+            "<extra></extra>"
         )
     ))
     
