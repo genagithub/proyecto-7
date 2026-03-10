@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.impute import KNNImputer
-from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler
+from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler, RobustScaler
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.metrics import r2_score
@@ -111,10 +111,6 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :]
     df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
     df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
-
-    kmeans = KMeans(n_clusters=5).fit(df_filtered["price"].values.reshape((-1,1)))
-    clusters = kmeans.labels_
-    df_filtered["clusters"] = clusters
     
     caba_map = go.Figure(go.Scattermapbox(
         lat=df_filtered["lat"],
@@ -136,6 +132,12 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
         margin={"r":0,"t":0,"l":0,"b":0}
     )
+
+    scaler = RobustScaler()
+    df_filtered["price_scaled"] = scaler.fit_transform(df_filtered["price"])
+
+    kmeans = KMeans(n_clusters=5, random_state=42, n_init=10)
+    df_filtered["clusters"] = kmeans.fit_predict(df_filtered[["price_scaled"]])
     
     cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
@@ -159,7 +161,8 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
                 y=df_c["lat"], 
                 mode="markers",
                 name=label,
-                marker=dict(size=6)
+                marker=dict(size=6),
+                hovertemplate=f"<b>{label}</b><br>Lat: %{{y}}<br>Lon: %{{x}}<extra></extra>"
             ), row=1, col=1
         )
 
