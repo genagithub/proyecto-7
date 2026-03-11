@@ -137,8 +137,14 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     )
     
     df_filtered["price_log"] = np.log1p(df_filtered["price"])    
-    df_filtered = df_filtered[df_filtered["price"] > 10000]
 
+    if slct_operation == "Venta":
+        df_filtered = df_filtered[df_filtered["price"].between(30000, 1500000)]
+    elif slct_operation == "Alquiler":
+        df_filtered = df_filtered[df_filtered["price"].between(200000, 2500000)]
+    else:
+        df_filtered = df_filtered[df_filtered["price"].between(300, 5000)]
+    
     kmeans = KMeans(n_clusters=5, random_state=42, n_init=5)
     df_filtered["clusters"] = kmeans.fit_predict( df_filtered[["price_log"]])
 
