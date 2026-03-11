@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.impute import KNNImputer
-from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler, StandardScaler
+from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler, RobustScaler
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.metrics import r2_score
@@ -136,7 +136,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     df_filtered = df_filtered[df_filtered["price"] > 10000].copy()
     df_filtered["price_log"] = np.log1p(df_filtered["price"])
 
-    scaler = StandardScaler()
+    scaler = RobustScaler()
     df_filtered["price_scaled"] = scaler.fit_transform(df_filtered[["price_log"]])
 
     kmeans = KMeans(n_clusters=5, random_state=42, n_init=10)
