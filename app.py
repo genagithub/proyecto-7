@@ -133,10 +133,11 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         mapbox_zoom=11.5,
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
         margin={"r":0,"t":0,"l":0,"b":0},
-        height=700
+        height=800
     )
     
     df_filtered["price_log"] = np.log1p(df_filtered["price"])    
+    df_filtered = df_filtered[df_filtered["price"] > 0]
 
     kmeans = KMeans(n_clusters=5, random_state=42, n_init=5)
     df_filtered["clusters"] = kmeans.fit_predict( df_filtered[["price_log"]])
