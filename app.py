@@ -35,7 +35,14 @@ cols_knn = ["lat","lon","rooms","bathrooms","bedrooms","surface_covered","price"
 imputed_array = imputer.fit_transform(df[cols_knn])
 df["surface_total"] = imputed_array[:, -1]
 
-dolar_value = 1390
+def get_dolar():
+    try:
+        res = requests.get("https://dolarapi.com", timeout=3)
+        return float(res.json()["venta"])
+    except:
+        return 1360.0
+
+dolar_value = get_dolar()
 currency_ARS = df.loc[df["currency"] == "ARS", "price"]
 df.loc[df["currency"] == "ARS", "price"] = currency_ARS / dolar_value
 
