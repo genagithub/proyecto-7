@@ -112,12 +112,10 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
     df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
 
-    columns_hover = ["price","surface_total"]
     caba_map = go.Figure(go.Scattermapbox(
         lat=df_filtered["lat"],
         lon=df_filtered["lon"],
         mode="markers",
-        customdata=df_filtered[columns_hover], 
         marker=go.scattermapbox.Marker(
             size=8,
             color=df_filtered["price"],
@@ -125,11 +123,6 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
             cmax=df_filtered["price"].max(),
             showscale=True,
             colorbar=dict(title="Precios")
-        ),
-        hovertemplate=(
-            "<b>Precio Total:</b> USD %{customdata[0]:,.0f}<br>" +
-            "<b>Superficie:</b> %{customdata[1]} m²<br>" +
-            "<extra></extra>"
         )
     ))
     
@@ -139,7 +132,8 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
         margin={"r":0,"t":0,"l":0,"b":0}
     )
-
+    
+    df_filtered = df_filtered[df_filtered["price"] > 10000].copy()
     df_filtered["price_log"] = np.log1p(df_filtered["price"])
 
     scaler = StandardScaler()
