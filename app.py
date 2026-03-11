@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.impute import KNNImputer
-from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler
+from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler, StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.metrics import r2_score
@@ -140,10 +140,13 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         margin={"r":0,"t":0,"l":0,"b":0}
     )
 
-    try:
-        df_filtered["clusters"] = pd.qcut(df_filtered["price"], q=5, labels=False, duplicates="drop")
-    except ValueError:
-        df_filtered["clusters"] = 0
+    df_filtered["price_log"] = np.log1p(df_filtered["price"])
+
+    scaler = StandardScaler()
+    df_filtered["price_scaled"] = scaler.fit_transform(df_filtered[["price_log"]])
+
+    kmeans = KMeans(n_clusters=5, random_state=42, n_init=10)
+    df_filtered["clusters"] = kmeans.fit_predict(df_filtered[["price_scaled"]])
     
     cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
