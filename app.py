@@ -72,7 +72,7 @@ server = app.server
 
 app.layout = html.Div(id="body",className="e7_body",children=[
         html.A(href="https://github.com/genagithub/proyecto-7/blob/main/estimación_y_segmentación_de_precios_inmuebles.ipynb",children=[html.H1("Análisis inmobiliario de CABA",id="title",className="e7_title")]),
-        html.Div(id="div_dropdown",className="e7_div_dropdown",children=[
+        html.Div(id="div_dropdown",className="e7_div_dropdown", style={"margin-bottom":"25px"}, children=[
             dcc.Dropdown(id="dropdown_1",className="e7_dropdown",
                         options=df["operation_type"].unique(),
                         value=df["operation_type"].unique()[0],
