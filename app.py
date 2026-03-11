@@ -137,7 +137,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     )
     
     df_filtered["price_log"] = np.log1p(df_filtered["price"])    
-    df_filtered = df_filtered[df_filtered["price"] > 0]
+    df_filtered = df_filtered[df_filtered["price"] > 10000]
 
     kmeans = KMeans(n_clusters=5, random_state=42, n_init=5)
     df_filtered["clusters"] = kmeans.fit_predict( df_filtered[["price_log"]])
