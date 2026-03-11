@@ -133,14 +133,14 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         margin={"r":0,"t":0,"l":0,"b":0}
     )
     
-    df_filtered = df_filtered[df_filtered["price"] > 10000].copy()
     df_filtered["price_log"] = np.log1p(df_filtered["price"])
+    df_filtered["surface_log"] = np.log1p(df_filtered["surface_total"])
 
     scaler = RobustScaler()
-    df_filtered["price_scaled"] = scaler.fit_transform(df_filtered[["price_log"]])
+    X_scaled = scaler.fit_transform(df_filtered[["price_log", "surface_log"]])
 
     kmeans = KMeans(n_clusters=5, random_state=42, n_init=10)
-    df_filtered["clusters"] = kmeans.fit_predict(df_filtered[["price_scaled"]])
+    df_filtered["clusters"] = kmeans.fit_predict(X_scaled)
     
     cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
