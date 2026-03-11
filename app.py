@@ -116,6 +116,8 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         lat=df_filtered["lat"],
         lon=df_filtered["lon"],
         mode="markers",
+        text=df_filtered["price"], 
+        hovertemplate="Precio: USD %{text:,.0f}<extra></extra>",
         marker=go.scattermapbox.Marker(
             size=8,
             color=df_filtered["price"],
