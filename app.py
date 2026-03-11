@@ -72,7 +72,7 @@ server = app.server
 
 app.layout = html.Div(id="body",className="e7_body",children=[
         html.A(href="https://github.com/genagithub/proyecto-7/blob/main/estimación_y_segmentación_de_precios_inmuebles.ipynb",children=[html.H1("Análisis inmobiliario de CABA",id="title",className="e7_title")]),
-        html.Div(id="div_dropdown",className="e7_div_dropdown", style={"margin-bottom":"25px"}, children=[
+        html.Div(id="div_dropdown",className="e7_div_dropdown",children=[
             dcc.Dropdown(id="dropdown_1",className="e7_dropdown",
                         options=df["operation_type"].unique(),
                         value=df["operation_type"].unique()[0],
@@ -95,7 +95,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
                         clearable=False)
         ]),
         dcc.Graph(id="graph_1",className="e7_graph",style={"height":"500px"},figure={}),
-        dcc.Graph(id="graph_2",className="e7_graph",figure={})
+        dcc.Graph(id="graph_2",className="e7_graph",style={"height":"800px"},figure={})
 ])
 
 @app.callback(
@@ -132,8 +132,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         mapbox_style="open-street-map",
         mapbox_zoom=11.5,
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
-        margin={"r":0,"t":0,"l":0,"b":0},
-        height=1000
+        margin={"r":0,"t":0,"l":0,"b":0}
     )
     
     df_filtered["price_log"] = np.log1p(df_filtered["price"])    
