@@ -108,7 +108,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
 )
 
 def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
-    df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :]
+    df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :].copy()
     df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
     df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
 
@@ -141,7 +141,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     )
 
     scaler = RobustScaler()
-    df_filtered["price_scaled"] = scaler.fit_transform(df_filtered["price"])
+    df_filtered["price_scaled"] = scaler.fit_transform(df_filtered[["price"]])
 
     kmeans = KMeans(n_clusters=5, random_state=42, n_init=10)
     df_filtered["clusters"] = kmeans.fit_predict(df_filtered[["price_scaled"]])
