@@ -141,8 +141,8 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     scaler = RobustScaler()
     X_scaled = scaler.fit_transform(df_filtered[["price_log"]])
 
-    kmeans = KMedoids(n_clusters=5, metric="manhattan", random_state=42)
-    df_filtered["clusters"] = kmeans.fit_predict(X_scaled)
+    kmedoids = KMedoids(n_clusters=5, metric="manhattan", random_state=42)
+    df_filtered["clusters"] = kmedoids.fit_predict(X_scaled)
     
     cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
