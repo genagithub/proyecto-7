@@ -6,7 +6,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.metrics import r2_score
 from sklearn.cluster import KMeans
-from sklearn_extra.cluster import KMedoids
 from xgboost import XGBRegressor
 import matplotlib.pyplot as plt
 import plotly.express as px
@@ -136,13 +135,13 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         margin={"r":0,"t":0,"l":0,"b":0}
     )
     
-    df_filtered["price_log"] = np.log1p(df_filtered["price"])
-
+    price_log = np.log1p(df["price"]).values.reshape(-1, 1)
+    
     scaler = RobustScaler()
-    X_scaled = scaler.fit_transform(df_filtered[["price_log"]])
-
-    kmedoids = KMedoids(n_clusters=5, metric="manhattan", random_state=42)
-    df_filtered["clusters"] = kmedoids.fit_predict(X_scaled)
+    X_scaled = scaler.fit_transform(price_log)
+    
+    kmeans = KMeans(n_clusters=6, random_state=42, n_init=5)
+    clusters = kmeans.fit_predict(X_scaled)
     
     cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
