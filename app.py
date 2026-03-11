@@ -141,8 +141,8 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     X_scaled = scaler.fit_transform(price_log)
     
     kmeans = KMeans(n_clusters=6, random_state=42, n_init=5)
-    clusters = kmeans.fit_predict(X_scaled)
-    
+    df_filtered["clusters"] = kmeans.fit_predict(X_scaled)
+
     cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
     label_map = {}
