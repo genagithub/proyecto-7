@@ -150,7 +150,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
     label_map = {}
-    for i, (idx, row) in enumerate(cluster_stats.iterrows()):
+    for i, (idx, row) in enumerate(cluster_stats.iterrows(), start=1):
         label_map[idx] = f"Rango {i}: (${int(row["min"])} - ${int(row["max"])})"
     
     df_filtered["cluster_label"] = df_filtered["clusters"].map(label_map)
