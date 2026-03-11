@@ -135,10 +135,10 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         margin={"r":0,"t":0,"l":0,"b":0}
     )
     
-    price_log = np.log1p(df["price"]).values.reshape(-1, 1)
+    df_filtered["price_log"] = np.log1p(df_filtered["price"])    
     
     scaler = RobustScaler()
-    X_scaled = scaler.fit_transform(price_log)
+    X_scaled = scaler.fit_transform(df_filtered[["price_log"]])
     
     kmeans = KMeans(n_clusters=6, random_state=42, n_init=5)
     df_filtered["clusters"] = kmeans.fit_predict(X_scaled)
