@@ -37,7 +37,7 @@ df["surface_total"] = imputed_array[:, -1]
 
 def get_dolar():
     try:
-        res = requests.get("https://dolarapi.com", timeout=3)
+        res = requests.get("https://dolarapi.com/v1/dolares/blue", timeout=3)
         return float(res.json()["venta"])
     except:
         return 1360.0
