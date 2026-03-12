@@ -141,20 +141,28 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
         margin={"r":0,"t":0,"l":0,"b":0}
     )
-    
-    df_filtered["price_log"] = np.log1p(df_filtered["price"])    
 
     if slct_operation == "Venta":
         df_filtered = df_filtered[df_filtered["price"].between(30000, 1500000)]
+        price = np.log1p(df_filtered["price"])    
     elif slct_operation == "Alquiler":
         df_filtered = df_filtered[df_filtered["price"].between(200000, 2500000)]
+        price = df_filtered["price"] 
     else:
         df_filtered = df_filtered[df_filtered["price"].between(300, 5000)]
+        price = df_filtered["price"] 
+
+    eps_config = {
+        "Venta": 0.2,             
+        "Alquiler": 0.3,          
+        "Alquiler temporal": 0.15 
+     }
+    current_eps = eps_config.get(slct_operation, 0.3)
     
     scaler = RobustScaler()
-    scaled_price = scaler.fit_transform(df_filtered[["price"]])
+    scaled_price = scaler.fit_transform(price.values.reshape(-1, 1))
     
-    dbscan = DBSCAN(eps=0.3, min_samples=5) 
+    dbscan = DBSCAN(eps=current_eps, min_samples=5) 
     df_filtered["clusters"] = dbscan.fit_predict(scaled_price)
 
     real_clusters = df_filtered[df_filtered["clusters"] != -1]
