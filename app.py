@@ -108,8 +108,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
 @app.callback(
     [Output(component_id="graph_1",component_property="figure"),
     Output(component_id="graph_2",component_property="figure")],
-    [Input(component_id="button",component_property="n_clicks"),
-    Input(component_id="dropdown_1",component_property="value"),
+    [Input(component_id="dropdown_1",component_property="value"),
     Input(component_id="dropdown_2",component_property="value"),
     Input(component_id="dropdown_3",component_property="value"),
     Input(component_id="dropdown_4",component_property="value")]
