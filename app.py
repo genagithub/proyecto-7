@@ -157,12 +157,14 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     dbscan = DBSCAN(eps=0.3, min_samples=5) 
     df_filtered["clusters"] = dbscan.fit_predict(scaled_price)
 
-    cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
+    real_clusters = df_filtered[df_filtered["clusters"] != -1]
+    cluster_stats = real_clusters.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
     label_map = {}
     for i, (idx, row) in enumerate(cluster_stats.iterrows(), start=1):
         label_map[idx] = f"Rango {i}: (${int(row["min"])} - ${int(row["max"])})"
-    
+
+    label_map[-1] = "Precio Atípico / Ruido"
     df_filtered["cluster_label"] = df_filtered["clusters"].map(label_map)
 
     clusters_analysis = make_subplots(
