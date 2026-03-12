@@ -99,7 +99,8 @@ app.layout = html.Div(id="body",className="e7_body",children=[
                         options=df["property_type"].unique(),
                         value=df["property_type"].unique()[0],
                         multi=False,
-                        clearable=False)
+                        clearable=False),
+            html.Button("enviar",id="button",type="button",className="input_button",n_clicks=0)
         ]),
         dcc.Graph(id="graph_1",className="e7_graph",figure={}),
         dcc.Graph(id="graph_2",className="e7_graph",figure={})
@@ -108,98 +109,100 @@ app.layout = html.Div(id="body",className="e7_body",children=[
 @app.callback(
     [Output(component_id="graph_1",component_property="figure"),
     Output(component_id="graph_2",component_property="figure")],
-    [Input(component_id="dropdown_1",component_property="value"),
+    [Input(component_id="button",component_property="n_clicks"),
+    Input(component_id="dropdown_1",component_property="value"),
     Input(component_id="dropdown_2",component_property="value"),
     Input(component_id="dropdown_3",component_property="value"),
     Input(component_id="dropdown_4",component_property="value")]
 )
 
-def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
-    df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :]
-    df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
-    df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
+def update_graph(n_clicks, slct_operation, slct_price_period, slct_status, slct_property):
+    if n_clicks is not None and n_clicks > 0:
+        df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :]
+        df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
+        df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
 
-    caba_map = go.Figure(go.Scattermapbox(
-        lat=df_filtered["lat"],
-        lon=df_filtered["lon"],
-        mode="markers",
-        text=df_filtered["price"], 
-        hovertemplate="Precio: USD %{text:,.0f}<extra></extra>",
-        marker=go.scattermapbox.Marker(
-            size=8,
-            color=df_filtered["price"],
-            cmin=df_filtered["price"].min(),
-            cmax=df_filtered["price"].max(),
-            showscale=True,
-            colorbar=dict(title="Precios")
+        caba_map = go.Figure(go.Scattermapbox(
+            lat=df_filtered["lat"],
+            lon=df_filtered["lon"],
+            mode="markers",
+            text=df_filtered["price"], 
+            hovertemplate="Precio: USD %{text:,.0f}<extra></extra>",
+            marker=go.scattermapbox.Marker(
+                size=8,
+                color=df_filtered["price"],
+                cmin=df_filtered["price"].min(),
+                cmax=df_filtered["price"].max(),
+                showscale=True,
+                colorbar=dict(title="Precios")
+            )
+        ))
+    
+        caba_map.update_layout(
+            mapbox_style="open-street-map",
+            mapbox_zoom=11.5,
+            mapbox_center={"lat": -34.6037, "lon": -58.4417},
+            margin={"r":0,"t":0,"l":0,"b":0},
+            height=700
         )
-    ))
+
+        if slct_operation == "Venta":
+            price = np.log1p(df_filtered["price"])    
+        else:
+            price = df_filtered["price"] 
+
+        eps_config = {
+            "Venta": 0.2,             
+            "Alquiler": 0.3,          
+            "Alquiler temporal": 0.15 
+         }
+        current_eps = eps_config.get(slct_operation, 0.3)
     
-    caba_map.update_layout(
-        mapbox_style="open-street-map",
-        mapbox_zoom=11.5,
-        mapbox_center={"lat": -34.6037, "lon": -58.4417},
-        margin={"r":0,"t":0,"l":0,"b":0},
-        height=700
-    )
-
-    if slct_operation == "Venta":
-        price = np.log1p(df_filtered["price"])    
-    else:
-        price = df_filtered["price"] 
-
-    eps_config = {
-        "Venta": 0.2,             
-        "Alquiler": 0.3,          
-        "Alquiler temporal": 0.15 
-     }
-    current_eps = eps_config.get(slct_operation, 0.3)
+        scaler = RobustScaler()
+        scaled_price = scaler.fit_transform(price.values.reshape(-1, 1))
     
-    scaler = RobustScaler()
-    scaled_price = scaler.fit_transform(price.values.reshape(-1, 1))
+        dbscan = DBSCAN(eps=current_eps, min_samples=5) 
+        df_filtered["clusters"] = dbscan.fit_predict(scaled_price)
+
+        real_clusters = df_filtered[df_filtered["clusters"] != -1]
+        cluster_stats = real_clusters.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
-    dbscan = DBSCAN(eps=current_eps, min_samples=5) 
-    df_filtered["clusters"] = dbscan.fit_predict(scaled_price)
+        label_map = {}
+        for i, (idx, row) in enumerate(cluster_stats.iterrows(), start=1):
+            label_map[idx] = f"Rango {i}: (${int(row["min"])} - ${int(row["max"])})"
 
-    real_clusters = df_filtered[df_filtered["clusters"] != -1]
-    cluster_stats = real_clusters.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
+        label_map[-1] = "Precio Atípico / Ruido"
+        df_filtered["cluster_label"] = df_filtered["clusters"].map(label_map)
+
+        clusters_analysis = make_subplots(
+            rows=2, cols=1, 
+            subplot_titles=["Distribución Geográfica por Rango", "Cantidad de Propiedades"],
+            vertical_spacing=0.1
+        )
+
+        for label in sorted(df_filtered["cluster_label"].unique()):
+            df_c = df_filtered[df_filtered["cluster_label"] == label]
+            clusters_analysis.add_trace(
+                go.Scatter(
+                    x=df_c["lon"], 
+                    y=df_c["lat"], 
+                    mode="markers",
+                    name=label,
+                    marker=dict(size=6),
+                    hovertemplate=f"<b>{label}</b><br>Lat: %{{y}}<br>Lon: %{{x}}<extra></extra>"
+                ), row=1, col=1
+            )
+
+        clusters_analysis.update_xaxes(range=[-58.55, -58.33], row=1, col=1)
+        clusters_analysis.update_yaxes(range=[-34.72, -34.52], scaleanchor="x", scaleratio=1, row=1, col=1)
     
-    label_map = {}
-    for i, (idx, row) in enumerate(cluster_stats.iterrows(), start=1):
-        label_map[idx] = f"Rango {i}: (${int(row["min"])} - ${int(row["max"])})"
-
-    label_map[-1] = "Precio Atípico / Ruido"
-    df_filtered["cluster_label"] = df_filtered["clusters"].map(label_map)
-
-    clusters_analysis = make_subplots(
-        rows=2, cols=1, 
-        subplot_titles=["Distribución Geográfica por Rango", "Cantidad de Propiedades"],
-        vertical_spacing=0.1
-    )
-
-    for label in sorted(df_filtered["cluster_label"].unique()):
-        df_c = df_filtered[df_filtered["cluster_label"] == label]
+        counts = df_filtered["cluster_label"].value_counts().reset_index()
         clusters_analysis.add_trace(
-            go.Scatter(
-                x=df_c["lon"], 
-                y=df_c["lat"], 
-                mode="markers",
-                name=label,
-                marker=dict(size=6),
-                hovertemplate=f"<b>{label}</b><br>Lat: %{{y}}<br>Lon: %{{x}}<extra></extra>"
-            ), row=1, col=1
+            go.Bar(x=counts["cluster_label"], y=counts["count"], name="Cantidad"),
+            row=2, col=1
         )
-
-    clusters_analysis.update_xaxes(range=[-58.55, -58.33], row=1, col=1)
-    clusters_analysis.update_yaxes(range=[-34.72, -34.52], scaleanchor="x", scaleratio=1, row=1, col=1)
     
-    counts = df_filtered["cluster_label"].value_counts().reset_index()
-    clusters_analysis.add_trace(
-        go.Bar(x=counts["cluster_label"], y=counts["count"], name="Cantidad"),
-        row=2, col=1
-    )
-    
-    clusters_analysis.update_layout(height=850, template="plotly_dark")
+        clusters_analysis.update_layout(height=850, template="plotly_dark")
     
     return caba_map, clusters_analysis
     
