@@ -1,11 +1,11 @@
 import pandas as pd
 import numpy as np
 from sklearn.impute import KNNImputer
-from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler
+from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler, RobustScaler
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.metrics import r2_score
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, DBSCAN
 from xgboost import XGBRegressor
 import matplotlib.pyplot as plt
 import plotly.express as px
@@ -151,8 +151,11 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     else:
         df_filtered = df_filtered[df_filtered["price"].between(300, 5000)]
     
-    kmeans = KMeans(n_clusters=5, random_state=42, n_init=5)
-    df_filtered["clusters"] = kmeans.fit_predict( df_filtered[["price_log"]])
+    scaler = RobustScaler()
+    scaled_price = scaler.fit_transform(df_filtered[["price"]])
+    
+    dbscan = DBSCAN(eps=0.3, min_samples=5) 
+    df_filtered["clusters"] = dbscan.fit_predict(scaled_price)
 
     cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
