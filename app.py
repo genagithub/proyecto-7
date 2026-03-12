@@ -102,7 +102,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
                         clearable=False)
         ]),
         dcc.Graph(id="graph_1",className="e7_graph",style={"height":"500px"},figure={}),
-        dcc.Graph(id="graph_2",className="e7_graph",style={"height":"800px"},figure={})
+        dcc.Graph(id="graph_2",className="e7_graph",style={"margin-bottom":"10px"},figure={})
 ])
 
 @app.callback(
