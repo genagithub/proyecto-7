@@ -143,13 +143,8 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     )
 
     if slct_operation == "Venta":
-        df_filtered = df_filtered[df_filtered["price"].between(30000, 1500000)]
         price = np.log1p(df_filtered["price"])    
-    elif slct_operation == "Alquiler":
-        df_filtered = df_filtered[df_filtered["price"].between(200000, 2500000)]
-        price = df_filtered["price"] 
     else:
-        df_filtered = df_filtered[df_filtered["price"].between(300, 5000)]
         price = df_filtered["price"] 
 
     eps_config = {
