@@ -114,7 +114,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
     Input(component_id="dropdown_4",component_property="value")]
 )
 
-def update_graph(slct_operation, slct_price_period, slct_status, slct_property
+def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     if slct_operation == "Alquiler" or slct_operation == "Alquiler temporal":
         slct_price_period = "Mensual"
     else:
