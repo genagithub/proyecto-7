@@ -206,7 +206,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     
     clusters_analysis.update_layout(height=850, template="plotly_dark")
     
-    return caba_map, clusters_analysis, slct_priced_period
+    return caba_map, clusters_analysis, slct_price_period
     
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8050)) 
