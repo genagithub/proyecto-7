@@ -107,7 +107,8 @@ app.layout = html.Div(id="body",className="e7_body",children=[
 
 @app.callback(
     [Output(component_id="graph_1",component_property="figure"),
-    Output(component_id="graph_2",component_property="figure")],
+    Output(component_id="graph_2",component_property="figure"),
+    Output(component_id="dropdown_2",component_property="value")],
     [Input(component_id="dropdown_1",component_property="value"),
     Input(component_id="dropdown_2",component_property="value"),
     Input(component_id="dropdown_3",component_property="value"),
@@ -115,7 +116,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
 )
 
 def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
-    if slct_operation == "Alquiler" or slct_operation == "Alquiler temporal":
+    if slct_operation in ["Alquiler", "Alquiler temporal"]:
         slct_price_period = "Mensual"
     else:
         slct_price_period = "Pago único"
@@ -205,7 +206,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     
     clusters_analysis.update_layout(height=850, template="plotly_dark")
     
-    return caba_map, clusters_analysis
+    return caba_map, clusters_analysis, slct_priced_period
     
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8050)) 
