@@ -74,7 +74,7 @@ df_temp_rents["price_period"] = df_temp_rents["price_period"].fillna(temp_rent_m
 df.loc[df["operation_type"] == "Alquiler", "price_period"] = df_rents["price_period"]
 df.loc[df["operation_type"] == "Alquiler temporal", "price_period"] = df_temp_rents["price_period"]
 
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, suppress_callback_exceptions=True)
 server = app.server
 
 app.layout = html.Div(id="body",className="e7_body",children=[
