@@ -125,6 +125,11 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         slct_price_period = "Pago único"
 
     df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :].copy()
+
+    if df_filtered.empty or len(df_filtered) < 5:
+        fig_empty = go.Figure().update_layout(title="Sin datos suficientes para esta selección", template="plotly_dark")
+        return fig_empty, fig_empty, slct_price_period
+    
     df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
     df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
 
