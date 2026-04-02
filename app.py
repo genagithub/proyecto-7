@@ -81,22 +81,22 @@ app.layout = html.Div(id="body",className="e7_body",children=[
         html.A(href="https://github.com/genagithub/proyecto-7/blob/main/estimación_y_agrupamiento_de_precios_inmuebles.ipynb",children=[html.H1("Análisis inmobiliario de CABA",id="title",className="e7_title")]),
         html.Div(id="div_dropdown",className="e7_div_dropdown",children=[
             dcc.Dropdown(id="dropdown_1",className="e7_dropdown",
-                        options=df["operation_type"].unique(),
+                        options=list(df["operation_type"].unique()),
                         value=df["operation_type"].unique()[0],
                         multi=False,
                         clearable=False),
             dcc.Dropdown(id="dropdown_2",className="e7_dropdown",
-                        options=df["price_period"].unique(),
+                        options=list(df["price_period"].unique()),
                         value=df["price_period"].unique()[0],
                         multi=False,
                         clearable=False),
             dcc.Dropdown(id="dropdown_3",className="e7_dropdown",
-                        options=df["status"].unique(),
+                        options=list(df["status"].unique()),
                         value=df["status"].unique()[0],
                         multi=False,
                         clearable=False),
             dcc.Dropdown(id="dropdown_4",className="e7_dropdown",
-                        options=df["property_type"].unique(),
+                        options=list(df["property_type"].unique()),
                         value=df["property_type"].unique()[0],
                         multi=False,
                         clearable=False),
@@ -150,7 +150,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
 
     if slct_operation == "Venta":
          price = np.log1p(df_filtered["price"])    
-    else
+    else:
         price = df_filtered["price"]
     
     eps_config = {
