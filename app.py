@@ -13,7 +13,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import dash
 from dash import html, dcc
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State 
 
 df = pd.read_csv("data/properati.csv")
 
@@ -110,12 +110,19 @@ app.layout = html.Div(id="body",className="e7_body",children=[
     Output(component_id="graph_2",component_property="figure"),
     Output(component_id="dropdown_2",component_property="value")],
     [Input(component_id="dropdown_1",component_property="value"),
-    Input(component_id="dropdown_2",component_property="value"),
+    State(component_id="dropdown_2",component_property="value"),
     Input(component_id="dropdown_3",component_property="value"),
     Input(component_id="dropdown_4",component_property="value")]
 )
 
 def update_graph(slct_operation, slct_price_period, slct_status, slct_property):     
+    if slct_operation in ["Alquiler", "Alquiler temporal"]:
+        slct_price_period = "Mensual"
+        price = df_filtered["price"]
+    elif slct_operation == "Venta":
+        slct_price_period = "Pago único"
+        price = np.log1p(df_filtered["price"])    
+
     df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :]
     df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
     df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
@@ -142,14 +149,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
         margin={"r":0,"t":0,"l":0,"b":0},
     )
-
-    if slct_operation in ["Alquiler", "Alquiler temporal"]:
-        slct_price_period = "Mensual"
-        price = df_filtered["price"]
-    elif slct_operation == "Venta":
-        slct_price_period = "Pago único"
-        price = np.log1p(df_filtered["price"])    
-
+    
     eps_config = {
         "Venta": 0.2,             
         "Alquiler": 0.3,          
