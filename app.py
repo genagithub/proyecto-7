@@ -77,6 +77,9 @@ df.loc[df["operation_type"] == "Alquiler temporal", "price_period"] = df_temp_re
 app = dash.Dash(__name__)
 server = app.server
 
+cols =  ["operation_type", "price_period", "status", "property_type", "price", "lat", "lon"]
+df = df.loc[:, cols]
+
 app.layout = html.Div(id="body",className="e7_body",children=[
         html.A(href="https://github.com/genagithub/proyecto-7/blob/main/estimación_y_agrupamiento_de_precios_inmuebles.ipynb",children=[html.H1("Análisis inmobiliario de CABA",id="title",className="e7_title")]),
         html.Div(id="div_dropdown",className="e7_div_dropdown",children=[
@@ -121,7 +124,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     elif slct_operation == "Venta":
         slct_price_period = "Pago único"
 
-    df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :]
+    df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :].copy()
     df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
     df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
 
