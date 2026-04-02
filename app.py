@@ -147,7 +147,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         mapbox_style="open-street-map",
         mapbox_zoom=11.5,
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
-        margin={"r":0,"t":0,"l":0,"b":0},
+        margin={"r":0,"t":0,"l":0,"b":0}
     )
 
     if slct_operation == "Venta":
