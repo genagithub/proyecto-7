@@ -13,7 +13,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import dash
 from dash import html, dcc
-from dash.dependencies import Input, Output, State 
+from dash.dependencies import Input, Output
 
 df = pd.read_csv("data/properati.csv")
 
@@ -110,25 +110,19 @@ app.layout = html.Div(id="body",className="e7_body",children=[
 
 @app.callback(
     [Output(component_id="graph_1",component_property="figure"),
-    Output(component_id="graph_2",component_property="figure"),
-    Output(component_id="dropdown_2",component_property="value")],
+    Output(component_id="graph_2",component_property="figure")],
     [Input(component_id="dropdown_1",component_property="value"),
-    State(component_id="dropdown_2",component_property="value"),
+    Input(component_id="dropdown_2",component_property="value"),
     Input(component_id="dropdown_3",component_property="value"),
     Input(component_id="dropdown_4",component_property="value")]
 )
 
 def update_graph(slct_operation, slct_price_period, slct_status, slct_property):     
-    if slct_operation in ["Alquiler", "Alquiler temporal"]:
-        slct_price_period = "Mensual"
-    elif slct_operation == "Venta":
-        slct_price_period = "Pago único"
-
     df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :].copy()
 
     if df_filtered.empty or len(df_filtered) < 5:
         fig_empty = go.Figure().update_layout(title="Sin datos suficientes para esta selección", template="plotly_dark")
-        return fig_empty, fig_empty, slct_price_period
+        return fig_empty, fig_empty
     
     df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
     df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
@@ -214,7 +208,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     
     clusters_analysis.update_layout(height=850, template="plotly_dark")
     
-    return caba_map, clusters_analysis, slct_price_period
+    return caba_map, clusters_analysis
     
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8050)) 
