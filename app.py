@@ -118,10 +118,8 @@ app.layout = html.Div(id="body",className="e7_body",children=[
 def update_graph(slct_operation, slct_price_period, slct_status, slct_property):     
     if slct_operation in ["Alquiler", "Alquiler temporal"]:
         slct_price_period = "Mensual"
-        price = df_filtered["price"]
     elif slct_operation == "Venta":
         slct_price_period = "Pago único"
-        price = np.log1p(df_filtered["price"])    
 
     df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :]
     df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
@@ -149,6 +147,11 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
         margin={"r":0,"t":0,"l":0,"b":0},
     )
+
+    if slct_operation == "Venta":
+         price = np.log1p(df_filtered["price"])    
+    else
+        price = df_filtered["price"]
     
     eps_config = {
         "Venta": 0.2,             
