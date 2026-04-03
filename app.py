@@ -15,70 +15,10 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output
 
-df = pd.read_csv("data/properati.csv")
-
-df["lat"], df["lon"] = df["lon"], df["lat"]
-
-df.dropna(subset=["lat","lon","surface_covered","price","currency"], inplace=True)
-df = df[df["surface_covered"] <= df["surface_total"]]
-
-cols_mode = ["rooms","bedrooms","bathrooms"]
-
-for col in cols_mode:
-    if col in df.columns:
-        mode = df[col].mode()[0]
-        df[col] = df[col].fillna(mode)
-        
-imputer = KNNImputer(n_neighbors=5)
-cols_knn = ["lat","lon","rooms","bathrooms","bedrooms","surface_covered","price","surface_total"]
-
-imputed_array = imputer.fit_transform(df[cols_knn])
-df["surface_total"] = imputed_array[:, -1]
-
-def get_dolar():
-    try:
-        res = requests.get("https://dolarapi.com/v1/dolares/blue", timeout=3)
-        return float(res.json()["venta"])
-    except:
-        return 1360.0
-
-dolar_value = get_dolar()
-currency_ARS = df.loc[df["currency"] == "ARS", "price"]
-df.loc[df["currency"] == "ARS", "price"] = currency_ARS / dolar_value
-
-df["end_date"] = df["end_date"].astype(str).mask(df["end_date"].astype(str).str.startswith("9999", na=False), np.nan)
-
-df["start_date"] = pd.to_datetime(df["start_date"], errors="coerce")
-df["end_date"] = pd.to_datetime(df["end_date"], errors="coerce")
-
-today = pd.to_datetime("today")
-publicate_days = (df["end_date"].fillna(today) - df["start_date"]).dt.days
-status = np.where(df["end_date"].isna(), "Activo", "Finalizado")
-
-df.insert(2, "publicate_days", publicate_days)
-df.insert(3, "status", status)
-
-df = df.drop(["start_date","end_date","created_on","currency"], axis=1)
-
-df.loc[df["operation_type"] == "Venta", "price_period"] = "Pago único"
-
-df_sales = df[df["operation_type"] == "Venta"]
-df_rents = df[df["operation_type"] == "Alquiler"]
-df_temp_rents = df[df["operation_type"] == "Alquiler temporal"]
-
-rent_mode = df_rents["price_period"].mode()[0]
-df_rents["price_period"] = df_rents["price_period"].fillna(rent_mode)
-temp_rent_mode = df_temp_rents["price_period"].mode()[0]
-df_temp_rents["price_period"] = df_temp_rents["price_period"].fillna(temp_rent_mode)
-
-df.loc[df["operation_type"] == "Alquiler", "price_period"] = df_rents["price_period"]
-df.loc[df["operation_type"] == "Alquiler temporal", "price_period"] = df_temp_rents["price_period"]
+df = pd.read_csv("properati_processed.csv", usecols=["operation_type", "price_period", "status", "property_type", "price", "lat", "lon"])
 
 app = dash.Dash(__name__)
 server = app.server
-
-cols =  ["operation_type", "price_period", "status", "property_type", "price", "lat", "lon"]
-df = df.loc[:, cols]
 
 app.layout = html.Div(id="body",className="e7_body",children=[
         html.A(href="https://github.com/genagithub/proyecto-7/blob/main/estimación_y_agrupamiento_de_precios_inmuebles.ipynb",children=[html.H1("Análisis inmobiliario de CABA",id="title",className="e7_title")]),
