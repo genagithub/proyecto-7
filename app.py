@@ -15,7 +15,7 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output
 
-df = pd.read_csv("properati_processed.csv", usecols=["operation_type", "price_period", "status", "property_type", "price", "lat", "lon"])
+df = pd.read_csv("data/properati_processed.csv", usecols=["operation_type", "price_period", "status", "property_type", "price", "lat", "lon"])
 
 app = dash.Dash(__name__)
 server = app.server
