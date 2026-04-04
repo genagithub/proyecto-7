@@ -57,13 +57,14 @@ app.layout = html.Div(id="body",className="e7_body",children=[
 
 def update_graph(slct_operation, slct_price_period, slct_status, slct_property):     
     df_filtered = df.loc[(df["operation_type"] == slct_operation) & (df["price_period"] == slct_price_period) & (df["status"] == slct_status) & (df["property_type"] == slct_property), :].copy()
-
+    df_filtered.dropna(inplace=True)
+        
     if df_filtered.empty or len(df_filtered) < 5:
         fig_empty = go.Figure().update_layout(title="Sin datos suficientes para esta selección", template="plotly_dark")
         return fig_empty, fig_empty
     
-    df_filtered["lat"] = pd.to_numeric(df_filtered["lat"])
-    df_filtered["lon"] = pd.to_numeric(df_filtered["lon"])  
+    df_filtered["lat"] = pd.to_numeric(df_filtered["lat"], errors="coerce")
+    df_filtered["lon"] = pd.to_numeric(df_filtered["lon"], errors="coerce")  
 
     caba_map = go.Figure(go.Scattermapbox(
         lat=df_filtered["lat"],
