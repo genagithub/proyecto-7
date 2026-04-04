@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler, RobustScaler
+from sklearn.preprocessing import RobustScaler
 from sklearn.cluster import DBSCAN
 import plotly.express as px
 import plotly.graph_objects as go
