@@ -1,13 +1,7 @@
 import pandas as pd
 import numpy as np
-from sklearn.impute import KNNImputer
 from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler, RobustScaler
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import RandomizedSearchCV
-from sklearn.metrics import r2_score
-from sklearn.cluster import KMeans, DBSCAN
-from xgboost import XGBRegressor
-import matplotlib.pyplot as plt
+from sklearn.cluster import DBSCAN
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
