@@ -83,38 +83,28 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     ))
     
     caba_map.update_layout(
-        mapbox_style="open-street-map",
+        mapbox_style="carto-darkmatter",
         mapbox_zoom=11.5,
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
         margin={"r":0,"t":0,"l":0,"b":0}
     )
 
-    if slct_operation == "Venta":
-         price = np.log1p(df_filtered["price"])    
-    else:
-        price = df_filtered["price"]
+    price_data = np.log1p(df_filtered["price"]) if slct_operation == "Venta" else df_filtered["price"]
+    scaled_price = RobustScaler().fit_transform(price_data.values.reshape(-1, 1))
     
-    eps_config = {
-        "Venta": 0.2,             
-        "Alquiler": 0.3,          
-        "Alquiler temporal": 0.15 
-    }
-    current_eps = eps_config.get(slct_operation, 0.3)
-    
-    scaler = RobustScaler()
-    scaled_price = scaler.fit_transform(price.values.reshape(-1, 1))
-    
-    dbscan = DBSCAN(eps=current_eps, min_samples=5) 
+    eps_val = {"Venta": 0.2, "Alquiler": 0.3}.get(slct_operation, 0.25)
+    dbscan = DBSCAN(eps=eps_val, min_samples=5)
     df_filtered["clusters"] = dbscan.fit_predict(scaled_price)
 
     real_clusters = df_filtered[df_filtered["clusters"] != -1]
-    cluster_stats = real_clusters.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
     
-    label_map = {}
-    for i, (idx, row) in enumerate(cluster_stats.iterrows(), start=1):
-        label_map[idx] = f"Rango {i}: (${int(row["min"])} - ${int(row["max"])})"
-
-    label_map[-1] = "Precio Atípico / Ruido"
+    if not real_clusters.empty:
+        cluster_stats = real_clusters.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
+        label_map = {idx: f"Rango {i+1}: (${int(row['min']):,} - ${int(row['max']):,})" for i, (idx, row) in enumerate(cluster_stats.iterrows())}
+    else:
+        label_map = {}
+        
+    label_map[-1] = "Outliers / Precios Atípicos"
     df_filtered["cluster_label"] = df_filtered["clusters"].map(label_map)
 
     clusters_analysis = make_subplots(
