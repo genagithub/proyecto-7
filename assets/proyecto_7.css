@@ -7,7 +7,7 @@
     align-items:center;
     padding-bottom: 20px;
 }
-a {
+a{
   text-decoration: none;
   margin-bottom: 50px;
 }
@@ -43,7 +43,7 @@ a {
     width:150px;
 }
 .e7_div_graph{
-    height: 550px;
+    height: 525px;
     width: 95%;
     margin: 0;
     padding: 0;
