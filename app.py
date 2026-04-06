@@ -104,7 +104,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     else:
         label_map = {}
         
-    label_map[-1] = "Outliers / Precios Atípicos"
+    label_map[-1] = "Precios Atípicos (Outliers)"
     df_filtered["cluster_label"] = df_filtered["clusters"].map(label_map)
 
     clusters_analysis = make_subplots(
