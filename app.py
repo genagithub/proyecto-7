@@ -89,6 +89,15 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         margin={"r":0,"t":0,"l":0,"b":0}
     )
 
+    prices_filter = {
+        "Venta": (10000, 10000000),
+        "Alquiler": (150, 15000),
+        "Alquiler temporal": (200, 20000)
+    }
+
+    min_p, max_p = prices_filter.get(slct_operation, (10000, 10000000))
+    df_filtered = df_filtered[df_filtered["price"].between(min_p, max_p)].copy()
+
     price_data = np.log1p(df_filtered["price"]) if slct_operation == "Venta" else df_filtered["price"]
     scaled_price = RobustScaler().fit_transform(price_data.values.reshape(-1, 1))
 
