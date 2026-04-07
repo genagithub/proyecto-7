@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import RobustScaler
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import KMeans
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -91,20 +91,18 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
 
     price_data = np.log1p(df_filtered["price"]) if slct_operation == "Venta" else df_filtered["price"]
     scaled_price = RobustScaler().fit_transform(price_data.values.reshape(-1, 1))
-    
-    eps_val = {"Venta": 0.2, "Alquiler": 0.3}.get(slct_operation, 0.25)
-    dbscan = DBSCAN(eps=eps_val, min_samples=5)
-    df_filtered["clusters"] = dbscan.fit_predict(scaled_price)
 
-    real_clusters = df_filtered[df_filtered["clusters"] != -1]
-    
-    if not real_clusters.empty:
-        cluster_stats = real_clusters.groupby("clusters")["price"].agg(["min", "max"]).sort_values("min")
-        label_map = {idx: f"Rango {i+1}: (${int(row['min']):,} - ${int(row['max']):,})" for i, (idx, row) in enumerate(cluster_stats.iterrows())}
-    else:
-        label_map = {}
-        
-    label_map[-1] = "Precios Atípicos (Outliers)"
+    n_clusters = 5
+    kmeans = KMeans(n_clusters=n_clusters, n_init=10, random_state=42)
+    df_filtered["clusters"] = kmeans.fit_predict(scaled_price)
+
+    cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max", "count"]).sort_values("min")
+
+    label_map = {
+        idx: f"Rango {i+1}: (${int(row['min']):,} - ${int(row['max']):,})" 
+        for i, (idx, row) in enumerate(cluster_stats.iterrows())
+    }
+
     df_filtered["cluster_label"] = df_filtered["clusters"].map(label_map)
 
     clusters_analysis = make_subplots(
