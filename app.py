@@ -121,7 +121,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     clusters_analysis = make_subplots(
         rows=2, cols=1, 
         subplot_titles=["Distribución Geográfica por Rango", "Cantidad de Propiedades"],
-        vertical_spacing=0.2
+        vertical_spacing=0.18
     )
 
     for label in sorted(df_filtered["cluster_label"].unique()):
