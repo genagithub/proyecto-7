@@ -143,7 +143,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     counts = df_filtered["cluster_label"].value_counts().reset_index()
     clusters_analysis.add_trace(go.Bar(x=counts["cluster_label"], y=counts["count"], name="Cantidad"), row=2, col=1)
     
-    clusters_analysis.update_layout(height=850, template="plotly_dark", margin=dict(t=50, l=25, r=25, b=25))
+    clusters_analysis.update_layout(template="plotly_dark", margin=dict(t=50, l=25, r=25, b=25))
     
     return caba_map, clusters_analysis
     
