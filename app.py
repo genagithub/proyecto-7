@@ -71,7 +71,11 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         lon=df_filtered["lon"],
         mode="markers",
         text=df_filtered["price"], 
-        hovertemplate="Precio: USD %{text:,.0f}<extra></extra>",
+        hovertemplate=(
+            "Precio: USD %{text:,.0f}<br>" +
+            "Lat: %{lat:.4f}<br>" +
+            "Lon: %{lon:.4f}<extra></extra>"
+        ),
         marker=go.scattermapbox.Marker(
             size=8,
             color=df_filtered["price"],
@@ -137,10 +141,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     clusters_analysis.update_yaxes(range=[-34.72, -34.52], scaleanchor="x", scaleratio=1, row=1, col=1)
     
     counts = df_filtered["cluster_label"].value_counts().reset_index()
-    clusters_analysis.add_trace(
-        go.Bar(x=counts["cluster_label"], y=counts["count"], name="Cantidad"),
-        row=2, col=1
-    )
+    clusters_analysis.add_trace(go.Bar(x=counts["cluster_label"], y=counts["count"], name="Cantidad"), row=2, col=1)
     
     clusters_analysis.update_layout(height=850, template="plotly_dark", margin=dict(t=50, l=25, r=25, b=25))
     
