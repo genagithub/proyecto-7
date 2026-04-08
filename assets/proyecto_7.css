@@ -5,7 +5,7 @@
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
 }
 a{
   text-decoration: none;
@@ -50,7 +50,7 @@ a{
 }
 .e7_div_graph:nth-child(2){
     height: 550px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 .e7_graph{
     width: 100%;
