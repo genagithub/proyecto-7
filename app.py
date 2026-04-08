@@ -41,7 +41,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
         html.Div(id="div_graph_1",className="e7_div_graph",children=[
             dcc.Graph(id="graph_1",className="e7_graph",figure={})   
         ]),
-        html.Div(id="div_graph_2",className="e7_div_graph",style={"margin-bottom":"20px"},children=[
+        html.Div(id="div_graph_2",className="e7_div_graph",children=[
             dcc.Graph(id="graph_2",className="e7_graph",figure={})    
         ])
 ])
