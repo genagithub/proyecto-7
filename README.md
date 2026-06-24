@@ -14,7 +14,7 @@ Para resolver la inconsistencia de los datos de origen y garantizar la precisió
 ---
 
 #### 🚀 El Data Product: Mapa Económico de CABA 
-El resultado final es una plataforma visual e interactiva diseñada para democratizar el acceso a la información del mercado, transformando matrices numéricas complejas en herramientas de consulta territorial a través de dos pilares:
+El resultado final es una plataforma visual e interactiva diseñada para democratizar el acceso a la información del mercado, transformando matrices numéricas complejas en herramientas de consulta territorial a través de dos funciones:
 - **Cartografía Geoespacial Interactiva:** Un mapa interactivo modificable que permite visualizar la distribución real de precios y la delimitación analítica de los conglomerados de mercado en tiempo real.
 - **Análisis de Rangos Monetarios:** Una interfaz de consulta que desglosa los valores por zonas y tipologías de propiedad, permitiendo comparar ofertas frente a la tasación matemática del modelo.
 
