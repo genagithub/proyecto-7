@@ -15,7 +15,7 @@ app = dash.Dash(__name__)
 server = app.server
 
 app.layout = html.Div(id="body",className="e7_body",children=[
-        html.A(href="https://github.com/genagithub/proyecto-7/blob/main/estimación_y_agrupamiento_de_precios_inmuebles.ipynb",children=[html.H1("Análisis del mercado inmobiliario de CABA",id="title",className="e7_title")]),
+        html.A(href="https://github.com/genagithub/proyecto-7/blob/main/README.md",children=[html.H1("Análisis del mercado inmobiliario de CABA",id="title",className="e7_title")]),
         html.Div(id="div_dropdown",className="e7_div_dropdown",children=[
             dcc.Dropdown(id="dropdown_1",className="e7_dropdown",
                         options=df["operation_type"].unique().tolist(),
@@ -142,8 +142,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     
     counts = df_filtered["cluster_label"].value_counts().reset_index()
     clusters_analysis.add_trace(go.Bar(x=counts["cluster_label"], y=counts["count"], name="Cantidad"), row=2, col=1)
-    
-    clusters_analysis.update_layout(height=850, template="plotly_dark", margin=dict(r=25, t=75, l=25, b=25))
+    clusters_analysis.update_layout(height=850, template="plotly_dark", margin=dict(r=25, t=80, l=25, b=25))
     
     return caba_map, clusters_analysis
     
