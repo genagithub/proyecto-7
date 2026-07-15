@@ -14,12 +14,11 @@ Para resolver la inconsistencia de los datos de origen y garantizar la precisió
 ---
 
 #### 🚀 Solución Analítica: Mapa Económico de CABA 
-El resultado final es una plataforma visual e interactiva diseñada para democratizar el acceso a la información del mercado, transformando matrices numéricas complejas en herramientas de consulta territorial a través de dos funciones:
+El resultado final es una plataforma visual e interactiva diseñada para exponer de forma clara la información del mercado, transformando matrices numéricas complejas en herramientas de consulta territorial a través de dos funciones:
 - **Cartografía Geoespacial Interactiva:** Un mapa interactivo modificable que permite visualizar la distribución real de precios y la delimitación analítica de los conglomerados de mercado en tiempo real.
 - **Análisis de Rangos Monetarios:** Una interfaz de consulta que desglosa los valores por zonas y tipologías de propiedad, permitiendo comparar ofertas frente a la tasación matemática del modelo.
 
 ---
 
 #### 📌 Propósito de este Proyecto: Impacto Operativo
-La herramienta funciona como un ecualizador de transparencia en el sector inmobiliario. Al exponer de forma clara la realidad económica de los barrios de CABA, la interfaz faculta a los usuarios para identificar las zonas más convenientes, negociar con precios respaldados por datos y mitigar el riesgo de sobreprecio en las transacciones.
-**Guía de Inversiones:** Permite a inversores, compradores y vendedores de la plataforma de autoservicio que reemplace la especulación por evidencia de mercado.
+**Guía de Inversiones:** Faculta a los usuarios para identificar las zonas más convenientes, negociar con precios respaldados por datos y mitigar el riesgo de sobreprecio en las transacciones.
