@@ -22,4 +22,4 @@ El resultado final es una plataforma visual e interactiva diseñada para democra
 
 #### 📌 Propósito de este Proyecto: Impacto Operativo
 La herramienta funciona como un ecualizador de transparencia en el sector inmobiliario. Al exponer de forma clara la realidad económica de los barrios de CABA, la interfaz faculta a los usuarios para identificar las zonas más convenientes, negociar con precios respaldados por datos y mitigar el riesgo de sobreprecio en las transacciones.
-- **Guía de Inversiones:** Permite a inversores, compradores y vendedores de la plataforma de autoservicio que reemplace la especulación por evidencia de mercado.
+**Guía de Inversiones:** Permite a inversores, compradores y vendedores de la plataforma de autoservicio que reemplace la especulación por evidencia de mercado.
