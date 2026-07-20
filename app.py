@@ -105,8 +105,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
     price_data = np.log1p(df_filtered["price"]) if slct_operation == "Venta" else df_filtered["price"]
     scaled_price = RobustScaler().fit_transform(price_data.values.reshape(-1, 1))
 
-    n_clusters = 5
-    kmeans = KMeans(n_clusters=n_clusters, n_init=10, random_state=42)
+    kmeans = KMeans(n_clusters=5, n_init=10, random_state=42)
     df_filtered["clusters"] = kmeans.fit_predict(scaled_price)
 
     cluster_stats = df_filtered.groupby("clusters")["price"].agg(["min", "max", "count"]).sort_values("min")
