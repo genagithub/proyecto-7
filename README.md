@@ -20,5 +20,5 @@ El resultado final es una plataforma visual e interactiva diseñada para exponer
 
 ---
 
-#### 📌 Propósito de este Proyecto: Impacto Operativo
+#### 📌 Propósito de este Proyecto: Impacto Directo
 **Guía de Inversiones:** Faculta a los usuarios para identificar las zonas más convenientes, negociar con precios respaldados por datos y mitigar el riesgo de sobreprecio en las transacciones.
