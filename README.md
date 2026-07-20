@@ -1,14 +1,14 @@
 ### 🏠 Estimación de Precios y Segmentación del Mercado Inmobiliario (CABA)
 
 #### 🎯 El Problema de Negocio
-Las plataformas inmobiliarias masivas generan un gran volumen de información, pero padecen de una preocupante pérdida de datos clave en las publicaciones. Este vacío de certezas obliga a compradores y vendedores a tomar decisiones basadas en la especulación o la intuición. El objetivo es eliminar esta incertidumbre mediante el modelado y la imputación de los valores perdidos para, posteriormente, realizar un análisis profundo de la economía inmobiliaria de CABA apoyado en evidencia visual y estadística.
+Las plataformas inmobiliarias masivas generan un gran volumen de información, pero padecen de una preocupante pérdida de información clave en las publicaciones, este vacío de certezas obliga a compradores y vendedores a tomar decisiones basadas en la especulación o la intuición. El objetivo es eliminar esta incertidumbre mediante pipelines de imputación de los valores perdidos y modelados de tasación para, posteriormente, realizar un análisis profundo de la economía inmobiliaria de CABA apoyado en evidencia visual y estadística.
 
 ---
 
 #### 🛠️ La Solución Técnica: Modelado de Canastas y Tasación
 Para resolver la inconsistencia de los datos de origen y garantizar la precisión analítica, se desarrolló una arquitectura basada en algoritmos de aprendizaje supervisado y no supervisado:
-- **Imputación y Modelado de Valores Perdidos:** Se estructuró un flujo estadístico para estimar y rellenar la pérdida de datos críticos en las publicaciones, recuperando la integridad del dataset inmobiliario.
-- **Boosting (Tasación Precisa):** Implementación de modelos de ensamble basados en Boosting como herramienta computacional de alta precisión para predecir el valor real de tasación de las propiedades.
+- **Imputación de Valores Perdidos:** Se estructuró un flujo estadístico para estimar y rellenar la pérdida de datos críticos en las publicaciones  a través de imputación por casos cercanos, valores recurrentes y conversión de divisas.
+- **Boosting (Tasación Precisa):** Implementación de modelos de ensamble basados en Boosting y especializados en el tipo de operación realizada como herramienta computacional de alta precisión para predecir el valor real de tasación.
 - **Clustering (Segmentación del Mercado):** Aplicación de algoritmos de agrupamiento no supervisado para conglomerar los barrios de CABA según su comportamiento económico real, aislando patrones de precios por encima de los límites geográficos tradicionales.
 
 ---
