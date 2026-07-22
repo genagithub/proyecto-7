@@ -1,6 +1,6 @@
 ### 🏠 Estimación de Precios y Segmentación del Mercado Inmobiliario (CABA)
 
-#### 🎯 El Problema de Negocio
+#### 🎯 El Contexto del Problema 
 Las plataformas inmobiliarias masivas generan un gran volumen de información, pero padecen de una preocupante pérdida de información clave en las publicaciones, este vacío de certezas obliga a compradores y vendedores a tomar decisiones basadas en la especulación o la intuición. El objetivo es eliminar esta incertidumbre mediante pipelines de imputación de los valores perdidos y modelados de tasación para, posteriormente, realizar un análisis profundo de la economía inmobiliaria de CABA apoyado en evidencia visual y estadística.
 
 ---
