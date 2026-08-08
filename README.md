@@ -1,11 +1,11 @@
 ### 🏠 Estimación de Precios y Segmentación del Mercado Inmobiliario (CABA)
 
 #### 🎯 El Contexto del Problema 
-Las plataformas inmobiliarias masivas generan un gran volumen de información, pero padecen de una preocupante pérdida de información clave en las publicaciones, este vacío de certezas obliga a compradores y vendedores a tomar decisiones basadas en la especulación o la intuición. El objetivo es eliminar esta incertidumbre mediante pipelines de imputación de los valores perdidos y modelados de tasación para, posteriormente, realizar un análisis profundo de la economía inmobiliaria de CABA apoyado en evidencia visual y estadística.
+Las plataformas inmobiliarias masivas generan un gran volumen de información, pero padecen de una preocupante pérdida de información clave en las publicaciones, este vacío de certezas obliga a compradores y vendedores a tomar decisiones basadas en la especulación o la intuición. El objetivo es combinar solución con discovery, eliminando esta incertidumbre mediante pipelines de imputación de los valores perdidos y modelados de tasación para, posteriormente, realizar un análisis profundo de la economía inmobiliaria de CABA apoyado en evidencia visual y estadística.
 
 ---
 
-#### 🛠️ La Solución Técnica: Modelado de Canastas y Tasación
+#### 🛠️ Solución Técnica: Modelado de Canastas y Tasación
 Para resolver la inconsistencia de los datos de origen y garantizar la precisión analítica, se desarrolló una arquitectura basada en algoritmos de aprendizaje supervisado y no supervisado:
 - **Imputación de Valores Perdidos:** Se estructuró un flujo estadístico para estimar y rellenar la pérdida de datos críticos en las publicaciones  a través de imputación por casos cercanos, valores recurrentes y conversión de divisas.
 - **Boosting (Tasación Precisa):** Implementación de modelos de ensamble basados en Boosting y especializados en el tipo de operación realizada como herramienta computacional de alta precisión para predecir el valor real de tasación.
