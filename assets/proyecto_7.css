@@ -41,13 +41,21 @@ a{
 .e7_dropdown{
     width:155px;
 }
-.e7_div_graph{
+.e7_div_graph:first-child{
     height: 530px;
     width: 95%;
     margin: 0;
     padding: 0;
 }
-.e7_graph{
+.e7_div_graph:last-child{
+    width: 95%;
+    margin: 0 0 5px 0;
+    padding: 0;
+}
+.e7_graph:first-child{
     width: 100%;
     height: 100%;
+}
+.e7_graph:last-child{
+    width: 100%;
 }
