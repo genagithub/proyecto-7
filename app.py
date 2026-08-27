@@ -91,8 +91,7 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         mapbox_zoom=11.5,
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
         margin={"r":0,"t":0,"l":0,"b":0},
-        height=550,
-        width=700
+        height=550
     )
 
     prices_filter = {
