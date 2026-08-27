@@ -42,7 +42,6 @@ a{
     width:155px;
 }
 .e7_div_graph:first-child{
-    height: 530px;
     width: 95%;
     margin: 0;
     padding: 0;
@@ -52,10 +51,6 @@ a{
     margin: 0 0 5px 0;
     padding: 0;
 }
-.e7_graph:first-child{
-    width: 100%;
-    height: 100%;
-}
-.e7_graph:last-child{
+.e7_graph{
     width: 100%;
 }
