@@ -41,16 +41,14 @@ a{
 .e7_dropdown{
     width:155px;
 }
-.e7_div_graph:first-child{
+.e7_div_graph{
     boder:1px solid black;
     width: 95%;
     margin: 0;
     padding: 0;
 }
 .e7_div_graph:last-child{
-    width: 95%;
     margin: 0 0 5px 0;
-    padding: 0;
 }
 .e7_graph{
     width: 100%;
