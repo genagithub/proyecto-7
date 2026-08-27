@@ -39,7 +39,7 @@ app.layout = html.Div(id="body",className="e7_body",children=[
                         clearable=False),
         ]),
         html.Div(id="div_graph_1",className="e7_div_graph",children=[
-            dcc.Graph(id="graph_1",className="e7_graph",figure={},config={'responsive': True})
+            dcc.Graph(id="graph_1",className="e7_graph",figure={})
         ]),
         html.Div(id="div_graph_2",className="e7_div_graph",children=[
             dcc.Graph(id="graph_2",className="e7_graph",figure={},config={'responsive': True})    
@@ -91,7 +91,8 @@ def update_graph(slct_operation, slct_price_period, slct_status, slct_property):
         mapbox_zoom=11.5,
         mapbox_center={"lat": -34.6037, "lon": -58.4417},
         margin={"r":0,"t":0,"l":0,"b":0},
-        height=550
+        height=550,
+        width=700
     )
 
     prices_filter = {
