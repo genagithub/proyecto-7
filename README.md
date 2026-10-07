@@ -1,6 +1,6 @@
 ### 🏠 Estimación de Precios y Segmentación del Mercado Inmobiliario (CABA)
 
-#### 🎯 El Contexto del Problema 
+#### 🎯 Contexto de Negocio 
 Las plataformas inmobiliarias masivas generan un gran volumen de información, pero padecen de una preocupante pérdida de información clave en las publicaciones, este vacío de certezas obliga a compradores y vendedores a tomar decisiones basadas en la especulación o la intuición. El objetivo es combinar solución con discovery, eliminando esta incertidumbre mediante pipelines de imputación de los valores perdidos y modelados de tasación para, posteriormente, realizar un análisis profundo de la economía inmobiliaria de CABA apoyado en evidencia visual y estadística destinada a los usuarios.
 
 ---
@@ -20,5 +20,5 @@ El resultado final es una plataforma visual e interactiva diseñada para exponer
 
 ---
 
-#### 📌 Propósito de este Proyecto: Impacto Directo
+#### 📌 Propósito: Impacto Directo
 **Guía de Inversiones:** Faculta a los usuarios para identificar las zonas más convenientes, negociar con precios respaldados por datos y mitigar el riesgo de sobreprecio en las transacciones.
