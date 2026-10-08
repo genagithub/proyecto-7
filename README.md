@@ -5,7 +5,7 @@ Las plataformas inmobiliarias masivas generan un gran volumen de información, p
 
 ---
 
-#### 🛠️ Solución Técnica: Modelado de Canastas y Tasación
+#### 🛠️ Enfoque Técnico y Modelado
 Para resolver la inconsistencia de los datos de origen y garantizar la precisión analítica, se desarrolló una arquitectura basada en algoritmos de aprendizaje supervisado y no supervisado:
 - **Imputación de Valores Perdidos:** Se estructuró un flujo estadístico para estimar y rellenar la pérdida de datos críticos en las publicaciones  a través de imputación por casos cercanos, valores recurrentes y conversión de divisas.
 - **Boosting (Tasación Precisa):** Implementación de modelos de ensamble basados en Boosting y especializados en el tipo de operación realizada como herramienta computacional de alta precisión para predecir el valor real de tasación.
